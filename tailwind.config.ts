@@ -18,7 +18,24 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        "2xl": "1400px",
+      },
       colors: {
+        terracota: {
+          200: "#ffd2c0",
+          300: "#f1beac",
+          400: "#d77964",
+          500: "#ad5b4b",
+          600: "#833c32",
+          700: "#591e19",
+        },
+        "olive-green": {
+          400: "#96b85d",
+          500: "#7c9d45",
+          600: "#6e8b3d",
+          700: "#52682d",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
