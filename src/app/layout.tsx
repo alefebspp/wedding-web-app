@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={cn("overflow-x-hidden", ...nunito.className)}>
-      <body className="overflow-x-hidden text-gray-600">{children}</body>
+      <body className="overflow-x-hidden text-cream">{children}</body>
     </html>
   );
 }

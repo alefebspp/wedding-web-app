@@ -37,24 +37,24 @@ export default function Counter() {
   }, []);
 
   return (
-    <div className="bg-terracota-400 flex min-h-[338px] flex-col items-center justify-center px-4 py-[44px] font-semibold">
-      <h2 className=" mb-[32px] text-center text-2xl uppercase text-white">
+    <div className="flex min-h-[338px] flex-col items-center justify-center bg-cream px-4 py-[44px] font-semibold">
+      <h2 className=" text-terracota-primary mb-[32px] text-center text-2xl uppercase">
         contagem regressiva
       </h2>
       <div className="flex items-center justify-center gap-2 uppercase md:gap-4">
-        <div className="bg-terracota-500 flex h-[76px] min-w-[76px] flex-col items-center justify-center rounded-[16px] text-xl text-white md:h-[100px] md:min-w-[100px] md:text-4xl">
+        <div className="bg-terracota-primary flex h-[76px] min-w-[76px] flex-col items-center justify-center rounded-[16px] text-xl text-cream md:h-[100px] md:min-w-[100px] md:text-4xl">
           {timeLeft.days}
           <span className="text-xs">dias</span>
         </div>
-        <div className="bg-terracota-500 flex h-[76px] min-w-[76px] flex-col items-center justify-center rounded-[16px] text-xl text-white md:h-[100px] md:min-w-[100px] md:text-4xl">
+        <div className="bg-terracota-primary flex h-[76px] min-w-[76px] flex-col items-center justify-center rounded-[16px] text-xl text-cream md:h-[100px] md:min-w-[100px] md:text-4xl">
           {timeLeft.hours}
           <span className="text-xs">horas</span>
         </div>
-        <div className="bg-terracota-500 flex h-[76px] min-w-[76px] flex-col items-center justify-center rounded-[16px] text-xl text-white md:h-[100px] md:min-w-[100px] md:text-4xl">
+        <div className="bg-terracota-primary flex h-[76px] min-w-[76px] flex-col items-center justify-center rounded-[16px] text-xl text-cream md:h-[100px] md:min-w-[100px] md:text-4xl">
           {timeLeft.minutes}
           <span className="text-xs">minutos</span>
         </div>
-        <div className="bg-terracota-500 flex h-[76px] min-w-[76px] flex-col items-center justify-center rounded-[16px] text-xl text-white md:h-[100px] md:min-w-[100px] md:text-4xl">
+        <div className="bg-terracota-primary flex h-[76px] min-w-[76px] flex-col items-center justify-center rounded-[16px] text-xl text-cream md:h-[100px] md:min-w-[100px] md:text-4xl">
           {timeLeft.seconds}
           <span className="text-xs">segundos</span>
         </div>

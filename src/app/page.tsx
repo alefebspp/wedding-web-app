@@ -5,7 +5,7 @@ import NavBar from "~/components/NavBar";
 
 export default function HomePage() {
   return (
-    <main className="bg-terracota-300 w-screen">
+    <main className="bg-terracota-primary w-screen">
       <NavBar />
       <Banner />
       <Counter />
