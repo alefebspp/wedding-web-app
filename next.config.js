@@ -7,7 +7,17 @@ await import("./src/env.js");
 /** @type {import("next").NextConfig} */
 const config = {
     images: {
-        domains: ['picsum.photos'],
+        remotePatterns: [
+          {
+            hostname: 'picsum.photos',
+            protocol: "https"
+          },
+          {
+            protocol: 'https',
+            hostname: 'hmtqfp97kqkqrylf.public.blob.vercel-storage.com',
+            
+          },
+        ],
       },
 };
 
