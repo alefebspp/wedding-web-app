@@ -52,4 +52,5 @@ export const productsImages = createTable(
 );
 
 export type InsertProduct = typeof products.$inferInsert;
+export type SelectProduct = typeof products.$inferSelect;
 

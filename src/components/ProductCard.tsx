@@ -26,13 +26,14 @@ export default function ProductCard({ product, editMode }: Props) {
         },
       )}
     >
-      <Image
-        width={50}
-        height={50}
-        className="h-40 w-full rounded-lg"
-        src={product.imageUrl || ""}
-        alt="Product image"
-      />
+      <div className="relative h-40 w-full">
+        <Image
+          fill
+          className="w-full rounded-lg align-middle"
+          src={product.imageUrl || ""}
+          alt="Product image"
+        />
+      </div>
       <span className="text-[14px]">{product.name}</span>
       <span className="text-lg font-bold">R${product.price}</span>
       {editMode ? (

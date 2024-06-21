@@ -1,11 +1,20 @@
 "use server"
 import { eq, asc, getTableColumns } from "drizzle-orm";
 import { db } from "../db";
-import { InsertProduct, products as productsTable, productsImages } from "../db/schema";
+import { InsertProduct, SelectProduct, products as productsTable, productsImages } from "../db/schema";
 import { revalidatePath } from "next/cache";
+
+interface UpdateProductData extends Partial<Omit<SelectProduct, 'id'>> {
+    path?: string;
+}
 
 interface CreateProductRequest extends InsertProduct {
     path: string;
+}
+
+interface UpdateProductRequest extends Partial<Omit<SelectProduct, 'id'>>{
+    data: UpdateProductData;
+    id: number;
 }
 
 export async function createProduct(data: CreateProductRequest){
@@ -20,6 +29,31 @@ export async function createProduct(data: CreateProductRequest){
         revalidatePath("/products")
     }
 }
+
+export async function updateProduct({data,id}: UpdateProductRequest){
+    const {path, ...productData} = data
+
+    if(path){
+        const response = await fetch(`http://localhost:3000/api/product_image/delete/${id.toString()}`, {
+        method: "DELETE",
+      });
+
+        const data = await response.json();
+
+        if(!data.success){
+            return
+        }
+
+        await db.update(productsImages).set({path}).where(eq(productsImages.product_id, id));
+    }
+
+    await db.update(productsTable).set(productData).where(eq(productsTable.id, id));
+
+    revalidatePath("/products")
+}
+
+
+
 
 export async function getProductsWithImages(){
     const products = db.select(

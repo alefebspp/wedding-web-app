@@ -7,7 +7,7 @@ export default async function Products() {
   return (
     <div className="flex w-full flex-wrap items-start justify-center gap-4 px-4 py-4">
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductCard key={product.id} product={product} editMode />
       ))}
     </div>
   );
