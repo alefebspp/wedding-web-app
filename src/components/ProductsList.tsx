@@ -35,7 +35,12 @@ export default function ProductsList({ products, canFetchMore }: Props) {
           setIsLoading(false);
         }
       }
-      handleFetchProducts();
+
+      try {
+        handleFetchProducts();
+      } catch (error) {
+        //Add toast
+      }
     }
   }, [isLoading]);
 

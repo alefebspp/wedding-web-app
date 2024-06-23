@@ -8,7 +8,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
 
     const productImage = await db.selectDistinct().from(productsImages).where(eq(productsImages.product_id, parseInt(params.id)))
 
-    const imageUrl = productImage[0]?.path || ''
+    const imageUrl = productImage[0]?.path ?? ''
 
    try {
     await del(imageUrl, {token: process.env.BLOB_READ_WRITE_TOKEN,

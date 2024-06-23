@@ -16,13 +16,13 @@ export default function DashboardNavBar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const pathname = usePathname();
-  const { back, push } = useRouter();
+  const router = useRouter();
 
   function handleNavigateBack() {
     if (pathname.includes("dashboard")) {
-      return push("/");
+      return router.push("/");
     }
-    back();
+    router.back();
   }
 
   return (

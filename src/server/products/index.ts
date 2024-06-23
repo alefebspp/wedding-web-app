@@ -38,7 +38,7 @@ export async function updateProduct({data,id}: UpdateProductRequest){
         method: "DELETE",
       });
 
-        const data = await response.json();
+    const data: {success: boolean} = await response.json(); // eslint-disable-line no-use-before-define
 
         if(!data.success){
             return
@@ -70,7 +70,7 @@ export async function getProductsWithImages({page}: {page: number}){
     .offset((page - 1) * productsPerPage);
 
    const [objectCount] = await db.select({ productsCount: count() }).from(productsTable);
-   const productsCount = objectCount?.productsCount || 0
+   const productsCount = objectCount?.productsCount ?? 0
    const canFetchMore = page * productsPerPage < productsCount
 
     return {
@@ -84,7 +84,7 @@ export default async function deleteProduct({id}: {id: number}){
         method: "DELETE",
       });
 
-    const data = await response.json();
+    const data: {success: boolean} = await response.json(); // eslint-disable-line no-use-before-define
     
     if(data.success){
         await db.delete(productsTable).where(eq(productsTable.id, id));

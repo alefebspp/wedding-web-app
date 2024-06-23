@@ -30,7 +30,7 @@ export default function ProductCard({ product, editMode }: Props) {
         <Image
           fill
           className="w-full rounded-lg align-middle"
-          src={product.imageUrl || ""}
+          src={product.imageUrl ?? ""}
           alt="Product image"
         />
       </div>

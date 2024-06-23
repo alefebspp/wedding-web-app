@@ -44,8 +44,8 @@ export default function CreateProductDialog({ children, product }: Props) {
     resolver: zodResolver(FormSchema),
     defaultValues: product
       ? {
-          name: product.name || "",
-          price: product.price?.toString() || "",
+          name: product.name ?? "",
+          price: product.price?.toString() ?? "",
         }
       : {},
   });
@@ -173,7 +173,7 @@ export default function CreateProductDialog({ children, product }: Props) {
                   fill
                   className="w-full rounded-lg align-middle"
                   alt="Product image"
-                  src={product.imageUrl || ""}
+                  src={product.imageUrl ?? ""}
                 />
                 <button
                   type="button"

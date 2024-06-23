@@ -29,7 +29,7 @@ type Props = {
 };
 
 export default function AuthDialog({ onMobile }: Props) {
-  const { push } = useRouter();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -40,7 +40,7 @@ export default function AuthDialog({ onMobile }: Props) {
   } = form;
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    push("/dashboard");
+    router.push("/dashboard");
   }
 
   return (
