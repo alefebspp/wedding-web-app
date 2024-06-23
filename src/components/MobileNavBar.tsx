@@ -4,11 +4,11 @@ import { AlignRight } from "lucide-react";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "~/components/ui/sheet";
+import AuthDialog from "./AuthDialog";
 
 export default function MobileNavBar() {
   return (
@@ -16,14 +16,15 @@ export default function MobileNavBar() {
       <SheetTrigger className="fixed right-2 top-2 rounded-md bg-gray-700 p-2 md:hidden">
         <AlignRight className="h-8 w-8 text-white" />
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="h-screen">
         <SheetHeader>
-          <SheetTitle>Are you absolutely sure?</SheetTitle>
-          <SheetDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </SheetDescription>
+          <SheetTitle>Seções</SheetTitle>
         </SheetHeader>
+        <div className="h-full w-full">
+          <div className="w-full ">
+            <AuthDialog onMobile />
+          </div>
+        </div>
       </SheetContent>
     </Sheet>
   );

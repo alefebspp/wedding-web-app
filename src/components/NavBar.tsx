@@ -1,8 +1,12 @@
 import Link from "next/link";
+import AuthDialog from "./AuthDialog";
 
 export default function NavBar() {
   return (
-    <nav className="lg-px-8 hidden h-[100px] min-h-[100px] w-full px-4 md:flex">
+    <nav className="lg-px-8 relative hidden h-[100px] min-h-[100px] w-full px-4 md:flex">
+      <div className="absolute right-4 top-4 hidden md:block lg:hidden">
+        <AuthDialog />
+      </div>
       <div className="flex h-full items-start justify-center px-4 py-4 lg:items-center">
         <span className="top-[2px] text-2xl font-bold xl:hidden">L&A</span>
       </div>
@@ -45,6 +49,9 @@ export default function NavBar() {
           <Link className="px-4 py-2 text-sm uppercase xl:px-6" href="#traje">
             Traje
           </Link>
+        </li>
+        <li className="hidden lg:block">
+          <AuthDialog />
         </li>
       </ul>
     </nav>

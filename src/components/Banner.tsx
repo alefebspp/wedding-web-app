@@ -25,7 +25,7 @@ export default function Banner() {
             montSerrat.className,
           )}
         >
-          <span className="bg-terracota-400 block h-[70px] w-[2px] lg:h-[140px] xl:h-[200px]"></span>
+          <span className="block h-[70px] w-[2px] bg-cream lg:h-[140px] xl:h-[200px]"></span>
           <p className=" my-4 text-lg font-semibold uppercase xl:text-2xl">
             sejam bem-vindos ao nosso site!
           </p>
@@ -46,10 +46,10 @@ export default function Banner() {
             uniremos nossas almas e corpos para sempre, O Dia Do Nosso
             Casamento.
           </p>
-          <div className="bg-terracota-400 my-4 inline-flex items-center pl-[16px] pr-[16px] pt-[3px] text-[20px] font-bold tracking-[4px] text-white 2xl:text-[25px]">
+          <div className="text-terracota-primary my-4 inline-flex items-center bg-cream pl-[16px] pr-[16px] pt-[3px] text-[20px] font-bold tracking-[4px] 2xl:text-[25px]">
             24/10/2024
           </div>
-          <span className="bg-terracota-400 block h-[70px] w-[2px] lg:h-[140px] xl:h-[200px]"></span>
+          <span className="block h-[70px] w-[2px] bg-cream lg:h-[140px] xl:h-[200px]"></span>
         </div>
       </div>
     </div>

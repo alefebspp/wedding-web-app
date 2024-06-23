@@ -22,7 +22,9 @@ const config = {
         "2xl": "1400px",
       },
       colors: {
+        cream: "#F5F5DC",
         terracota: {
+          primary: "#c14f35",
           200: "#ffd2c0",
           300: "#f1beac",
           400: "#d77964",

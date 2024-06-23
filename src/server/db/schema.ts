@@ -8,6 +8,8 @@ import {
   serial,
   timestamp,
   varchar,
+  doublePrecision,
+  integer
 } from "drizzle-orm/pg-core";
 
 /**
@@ -18,11 +20,12 @@ import {
  */
 export const createTable = pgTableCreator((name) => `wedding_${name}`);
 
-export const posts = createTable(
-  "post",
+export const products = createTable(
+  "products",
   {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }),
+    price: doublePrecision("price"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
@@ -32,3 +35,22 @@ export const posts = createTable(
     nameIndex: index("name_idx").on(example.name),
   })
 );
+
+export const productsImages = createTable(
+  "products_images",
+  {
+    id: serial("id").primaryKey(),
+    path: varchar("path", { length: 256 }),
+    product_id: integer('product_id')
+    .notNull()
+    .references(() => products.id, { onDelete: 'cascade' }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt", { withTimezone: true }),
+  }
+);
+
+export type InsertProduct = typeof products.$inferInsert;
+export type SelectProduct = typeof products.$inferSelect;
+
