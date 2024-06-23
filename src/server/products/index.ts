@@ -80,7 +80,7 @@ export async function getProductsWithImages({page}: {page: number}){
 }
 
 export default async function deleteProduct({id}: {id: number}){
-    const response = await fetch(`http://localhost:3000/api/product_image/delete/${id.toString()}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_MY_DOMAIN}/api/product_image/delete/${id.toString()}`, {
         method: "DELETE",
       });
 
