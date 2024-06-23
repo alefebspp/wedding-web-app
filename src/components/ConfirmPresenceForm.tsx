@@ -30,7 +30,9 @@ export default function ConfirmPresenceForm() {
     resolver: zodResolver(FormSchema),
   });
 
-  async function onSubmit(data: z.infer<typeof FormSchema>) {}
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    console.log("DATA:", data);
+  }
 
   return (
     <Form {...form}>
