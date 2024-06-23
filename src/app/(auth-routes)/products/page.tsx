@@ -1,14 +1,10 @@
-import ProductCard from "~/components/ProductCard";
+import ProductsList from "~/components/ProductsList";
 import { getProductsWithImages } from "~/server/products";
 
 export default async function Products() {
-  const products = await getProductsWithImages();
+  const { products, canFetchMore } = await getProductsWithImages({
+    page: 1,
+  });
 
-  return (
-    <div className="flex w-full flex-wrap items-start justify-center gap-4 px-4 py-4">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} editMode />
-      ))}
-    </div>
-  );
+  return <ProductsList products={products} canFetchMore={canFetchMore} />;
 }

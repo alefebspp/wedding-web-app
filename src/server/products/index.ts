@@ -1,5 +1,5 @@
 "use server"
-import { eq, asc, getTableColumns } from "drizzle-orm";
+import { eq, asc, getTableColumns, count } from "drizzle-orm";
 import { db } from "../db";
 import { InsertProduct, SelectProduct, products as productsTable, productsImages } from "../db/schema";
 import { revalidatePath } from "next/cache";
@@ -55,17 +55,28 @@ export async function updateProduct({data,id}: UpdateProductRequest){
 
 
 
-export async function getProductsWithImages(){
-    const products = db.select(
+export async function getProductsWithImages({page}: {page: number}){
+    const productsPerPage = 6
+
+    const productsRows = await db.select(
         {
             ...getTableColumns(productsTable),
             imageUrl: productsImages.path,
         }
     ).from(productsTable).leftJoin(productsImages, eq(productsTable.id, productsImages.product_id))
     .groupBy(productsTable.id, productsImages.path)
-    .orderBy(asc(productsTable.id));
+    .orderBy(asc(productsTable.id))
+    .limit(productsPerPage)
+    .offset((page - 1) * productsPerPage);
 
-    return products
+   const [objectCount] = await db.select({ productsCount: count() }).from(productsTable);
+   const productsCount = objectCount?.productsCount || 0
+   const canFetchMore = page * productsPerPage < productsCount
+
+    return {
+        products: productsRows,
+        canFetchMore
+    }
 }
 
 export default async function deleteProduct({id}: {id: number}){

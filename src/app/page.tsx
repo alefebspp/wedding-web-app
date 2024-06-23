@@ -1,4 +1,5 @@
 import Banner from "~/components/Banner";
+import ConfirmPresenceSection from "~/components/ConfirmPresenceSection";
 import Counter from "~/components/Counter";
 import GiftsList from "~/components/GiftsList";
 import MobileNavBar from "~/components/MobileNavBar";
@@ -11,6 +12,7 @@ export default function HomePage() {
       <Banner />
       <Counter />
       <GiftsList />
+      <ConfirmPresenceSection />
       <MobileNavBar />
     </main>
   );

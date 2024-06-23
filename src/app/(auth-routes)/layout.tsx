@@ -7,9 +7,7 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="flex h-screen w-screen flex-col">
-      <nav className="flex min-h-[100px] w-full items-center justify-start border-b border-slate-300 px-4">
-        <DashboardNavBar />
-      </nav>
+      <DashboardNavBar />
       <main className="h-full w-full overflow-x-hidden text-slate-600">
         {children}
       </main>

@@ -185,7 +185,7 @@ export default function CreateProductDialog({ children, product }: Props) {
               </div>
             )}
 
-            <FormItem
+            <div
               className={cn("w-full lg:w-4/5", {
                 hidden: showPreviewImage,
               })}
@@ -197,7 +197,7 @@ export default function CreateProductDialog({ children, product }: Props) {
                   ref={inputFileRef}
                   required={product ? editingImage : true}
                   name="product-image"
-                  accept=".jpg,.jpeg"
+                  accept=".jpg,.jpeg, .png"
                 />
                 {hasFileError && (
                   <p className="text-xs font-medium text-destructive">
@@ -215,7 +215,7 @@ export default function CreateProductDialog({ children, product }: Props) {
                   </Button>
                 )}
               </div>
-            </FormItem>
+            </div>
 
             <Button
               isLoading={isSubmitting}
