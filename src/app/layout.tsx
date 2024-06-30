@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 
 import { Nunito } from "next/font/google";
 import { cn } from "~/lib/utils";
+import { Toaster } from "~/components/ui/toaster";
 
 const nunito = Nunito({
   weight: ["300", "400", "500", "700"],
@@ -23,7 +24,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={cn("overflow-x-hidden", ...nunito.className)}>
-      <body className="overflow-x-hidden text-cream">{children}</body>
+      <body className="overflow-x-hidden text-cream">
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

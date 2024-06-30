@@ -9,7 +9,8 @@ import {
   timestamp,
   varchar,
   doublePrecision,
-  integer
+  integer,
+  boolean
 } from "drizzle-orm/pg-core";
 
 /**
@@ -51,6 +52,39 @@ export const productsImages = createTable(
   }
 );
 
+export const guests = createTable(
+  "guests",
+  {
+    id: serial("id").primaryKey(),
+    name: varchar("name", { length: 256 }).notNull(),
+    children_quantity: integer('children_quantity')
+    .notNull(),
+    adults_quantity: integer('adults_quantity')
+    .notNull(),
+    confirmation: boolean('confirmation').notNull(),
+    email: varchar("email", {length: 256}),
+    phone: integer('phone'),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt", { withTimezone: true }),
+  }
+);
+
+export const guestCompanions = createTable("guest_companions", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 256 }).notNull(),
+  guest_id: integer('guest_id')
+    .notNull()
+    .references(() => guests.id, { onDelete: 'cascade' }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt", { withTimezone: true }),
+})
+
+export type InserGuest = typeof guests.$inferInsert;
+export type InsertGuestCompanin = typeof guestCompanions.$inferInsert;
 export type InsertProduct = typeof products.$inferInsert;
 export type SelectProduct = typeof products.$inferSelect;
 
