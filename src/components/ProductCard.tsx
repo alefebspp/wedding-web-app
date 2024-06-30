@@ -35,7 +35,13 @@ export default function ProductCard({ product, editMode }: Props) {
         />
       </div>
       <span className="text-[14px]">{product.name}</span>
-      <span className="text-lg font-bold">R${product.price}</span>
+      <span className="text-lg font-bold">
+        {product.price &&
+          product.price.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          })}
+      </span>
       {editMode ? (
         <div className="flex w-full items-center justify-end gap-8">
           <CreateProductDialog product={product}>

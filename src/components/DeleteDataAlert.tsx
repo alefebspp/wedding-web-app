@@ -14,6 +14,7 @@ import {
   AlertDialogTrigger,
 } from "~/components/ui/alert-dialog";
 import { Button } from "./ui/button";
+import { useToast } from "./ui/use-toast";
 
 type Props = {
   action: ({ id }: { id: number }) => Promise<{ success: boolean }>;
@@ -24,14 +25,26 @@ export default function DeleteDataAlert({ id, children, action }: Props) {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { toast } = useToast();
+
   async function handleDelete() {
     setIsLoading(true);
     try {
       const success = await action({ id });
 
+      toast({
+        title: "Sucesso",
+        description: "Registro removido com sucesso",
+        variant: "success",
+      });
+
       setOpen(false);
     } catch (error) {
-      console.log("ERROR:", error);
+      toast({
+        title: "Error",
+        description: "Aconteceu um erro ao tentar realizar ação",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }

@@ -22,6 +22,8 @@ import { ProductWithImage } from "~/types";
 import { cn } from "~/lib/utils";
 import Image from "next/image";
 import { X } from "lucide-react";
+import { useToast } from "../ui/use-toast";
+import { CURRENCYMask, removeCurrencyMask } from "~/utils/masks";
 
 const FormSchema = z.object({
   name: z.string({ message: "Campo obrigatório" }).min(1),
@@ -38,6 +40,8 @@ export default function CreateProductDialog({ children, product }: Props) {
   const [editingImage, setEditingImage] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
 
+  const { toast } = useToast();
+
   const showPreviewImage = product && !editingImage;
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -45,7 +49,11 @@ export default function CreateProductDialog({ children, product }: Props) {
     defaultValues: product
       ? {
           name: product.name ?? "",
-          price: product.price?.toString() ?? "",
+          price:
+            product.price?.toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            }) ?? "",
         }
       : {},
   });
@@ -87,8 +95,14 @@ export default function CreateProductDialog({ children, product }: Props) {
           id: product.id,
           data: {
             ...updateData,
-            price: parseFloat(data.price),
+            price: removeCurrencyMask(data.price),
           },
+        });
+
+        toast({
+          title: "Sucesso",
+          description: "Produto atualizado com sucesso",
+          variant: "success",
         });
 
         return setIsOpen(false);
@@ -113,10 +127,20 @@ export default function CreateProductDialog({ children, product }: Props) {
           price: "",
         });
         inputFileRef.current.files = null;
+
+        toast({
+          title: "Sucesso",
+          description: "Produto criado com sucesso",
+          variant: "success",
+        });
         setIsOpen(false);
       }
     } catch (error) {
-      console.log("ERROR:", error);
+      toast({
+        title: "Error",
+        description: "Aconteceu um erro ao tentar realizar ação",
+        variant: "destructive",
+      });
     }
   }
 
@@ -161,7 +185,16 @@ export default function CreateProductDialog({ children, product }: Props) {
                 <FormItem className="w-full lg:w-4/5">
                   <FormLabel>Preço</FormLabel>
                   <FormControl>
-                    <Input placeholder="R$0,00" {...field} />
+                    <Input
+                      {...field}
+                      placeholder="R$0,00"
+                      onChange={(event) => {
+                        form.setValue(
+                          "price",
+                          CURRENCYMask(event.target.value),
+                        );
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
