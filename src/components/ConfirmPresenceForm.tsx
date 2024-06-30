@@ -138,14 +138,17 @@ export default function ConfirmPresenceForm() {
         append();
       }
     } else {
-      if (quantity < 1) {
+      if (quantity < 1 && ignoreOneField) {
         return;
       }
+
       const toBeRemoveFields = addedFields - quantity;
       let lastFieldIndex = addedFields - 1;
+
       if (ignoreOneField) {
         lastFieldIndex--;
       }
+
       const stopIndex = toBeRemoveFields - (lastFieldIndex + 1);
       if (toBeRemoveFields === 1) {
         return remove(lastFieldIndex);
@@ -174,6 +177,7 @@ export default function ConfirmPresenceForm() {
       addedFields: childrenNames.fields.length,
       append,
       remove: childrenNames.remove,
+      ignoreOneField: false,
     });
   }, [children_quantity]);
 
