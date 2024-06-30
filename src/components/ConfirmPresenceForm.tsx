@@ -240,10 +240,9 @@ export default function ConfirmPresenceForm() {
           )}
         />
         {childrenNames.fields.map((field, index) => (
-          <div className="flex flex-col gap-2">
+          <div key={field.id} className="flex flex-col gap-2">
             <Input
               {...register(`children_names.${index}.name`)}
-              key={field.id}
               placeholder="Nome da criança"
             />
             {errors["children_names"]?.[index] && (
@@ -289,10 +288,9 @@ export default function ConfirmPresenceForm() {
           )}
         />
         {adultsNames.fields.map((field, index) => (
-          <div className="flex flex-col gap-2">
+          <div key={field.id} className="flex flex-col gap-2">
             <Input
               {...register(`adults_names.${index}.name`)}
-              key={field.id}
               placeholder="Nome do acompanhante"
             />
             {errors["adults_names"]?.[index] && (

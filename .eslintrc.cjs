@@ -18,6 +18,8 @@ const config = {
     "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/prefer-optional-chain": "off",
+    "@typescript-eslint/dot-notation": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {
