@@ -20,7 +20,7 @@ export default function Dashboard() {
       </Link>
       <Link
         className="flex h-40 w-[45%] flex-col items-center justify-center gap-2 rounded-xl border-4 border-slate-400"
-        href="/convidados"
+        href="/guests"
       >
         <UserRound className="h-8 w-8" />
         <span className="text-sm font-semibold uppercase">convidados</span>

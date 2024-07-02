@@ -19,9 +19,17 @@ import { useToast } from "./ui/use-toast";
 type Props = {
   action: ({ id }: { id: number }) => Promise<{ success: boolean }>;
   id: number;
+  className?: string;
+  customMessage?: string;
 } & PropsWithChildren;
 
-export default function DeleteDataAlert({ id, children, action }: Props) {
+export default function DeleteDataAlert({
+  id,
+  children,
+  action,
+  className,
+  customMessage,
+}: Props) {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -52,11 +60,11 @@ export default function DeleteDataAlert({ id, children, action }: Props) {
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger>{children}</AlertDialogTrigger>
+      <AlertDialogTrigger className={className}>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="text-slate-600">
-            Deseja remover o produto?
+            {customMessage ?? "Deseja remover o produto?"}
           </AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter>

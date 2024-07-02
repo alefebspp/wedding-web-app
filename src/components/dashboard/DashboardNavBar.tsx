@@ -1,5 +1,11 @@
 "use client";
-import { AlignLeft, ChevronLeft, Home, ShoppingCart } from "lucide-react";
+import {
+  AlignLeft,
+  ChevronLeft,
+  Home,
+  ShoppingCart,
+  UsersRound,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -59,6 +65,16 @@ export default function DashboardNavBar() {
             <div className="mb-2 flex w-full items-center gap-4 px-6">
               <ShoppingCart className="h-8 w-8" />
               <span className="text-lg font-semibold">Produtos</span>
+            </div>
+          </Link>
+          <Link
+            onClick={() => setIsOpen(false)}
+            href="/guests"
+            className="flex w-full flex-col border-b border-slate-300 pb-2 pt-4 text-slate-600"
+          >
+            <div className="mb-2 flex w-full items-center gap-4 px-6">
+              <UsersRound className="h-8 w-8" />
+              <span className="text-lg font-semibold">Convidados</span>
             </div>
           </Link>
         </SheetContent>
