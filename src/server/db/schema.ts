@@ -1,7 +1,7 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   index,
   pgTableCreator,
@@ -71,6 +71,10 @@ export const guests = createTable(
   }
 );
 
+export const guestRelations = relations(guests, ({ many }) => ({
+  guestCompanions: many(guestCompanions),
+}));
+
 export const guestCompanions = createTable("guest_companions", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 256 }).notNull(),
@@ -82,6 +86,10 @@ export const guestCompanions = createTable("guest_companions", {
     .notNull(),
   updatedAt: timestamp("updatedAt", { withTimezone: true }),
 })
+
+export const guestCompanionsRelations = relations(guestCompanions, ({ one }) => ({
+  guest: one(guests, { fields: [guestCompanions.guest_id], references: [guests.id] }),
+}));
 
 export type InserGuest = typeof guests.$inferInsert;
 export type InsertGuestCompanin = typeof guestCompanions.$inferInsert;
