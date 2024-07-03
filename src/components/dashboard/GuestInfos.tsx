@@ -35,7 +35,7 @@ export default function GuestInfos({ guest }: Props) {
       </DeleteDataAlert>
       <span className="text-xs font-medium uppercase text-gray-300">nomes</span>
       <div className="flex flex-col">
-        <p className="text-sm font-medium text-gray-600">{guest.name}</p>
+        <p className="text-sm font-bold text-gray-600">{guest.name}</p>
         {guest.guestCompanions.map((companion) => (
           <p key={companion.id} className="text-sm text-gray-600">
             {companion.name}
