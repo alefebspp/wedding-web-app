@@ -45,7 +45,7 @@ export async function createGuest(data: CreateGuestRequest){
 export async function getGuests({page, onlyConfirmed, search}: GetGuestsParams){
     const guestsPerPage = 6
 
-    let where = eq(guestsTable.confirmation, onlyConfirmed)
+    const where = eq(guestsTable.confirmation, onlyConfirmed)
     const searchWhere = ilike(guestsTable.name, `%${search}%`)
     
 
