@@ -1,5 +1,5 @@
 "use server"
-import { eq, asc, getTableColumns, count, } from "drizzle-orm";
+import { eq, count, and, ilike, asc, } from "drizzle-orm";
 import { db } from "../db";
 import { guests as guestsTable, InserGuest, guestCompanions as guestCompaniosTable, guestCompanions } from "../db/schema";
 import { revalidatePath } from "next/cache";
@@ -7,6 +7,12 @@ import { revalidatePath } from "next/cache";
 export interface CreateGuestRequest extends InserGuest {
     children_names?: {name: string}[];
     adults_names?: {name: string}[];
+}
+
+export interface GetGuestsParams  {
+    page: number; 
+    onlyConfirmed: boolean;
+    search?: string;
 }
 
 export async function createGuest(data: CreateGuestRequest){
@@ -36,31 +42,31 @@ export async function createGuest(data: CreateGuestRequest){
     }    
 }
 
-export async function getGuests({page}: {page: number}){
+export async function getGuests({page, onlyConfirmed, search}: GetGuestsParams){
     const guestsPerPage = 6
 
+    const where = eq(guestsTable.confirmation, onlyConfirmed)
+    const searchWhere = ilike(guestsTable.name, `%${search}%`)
+    
+
    const guests = await db.query.guests.findMany({
-        with: {
-          guestCompanions: true      
-        },
-        limit: guestsPerPage,
-        offset: (page - 1) * guestsPerPage
-      });
+    orderBy: [asc(guestsTable.name)],
+    where: search ? and(where, searchWhere) : where,
+    with: {
+      guestCompanions: true
+    },
+    limit: guestsPerPage,
+    offset: (page - 1) * guestsPerPage,
+  });
 
-   const [objectCount] = await db.select({ guestsCount: count() }).from(guestsTable);
+  const [objectCount] = await db.select({ guestsCount: count() }).from(guestsTable).where(where);
    const guestsCount = objectCount?.guestsCount ?? 0
-   const canFetchMore = page * guestsPerPage < guestsCount
-
-   const confirmedGuests = await db.select().from(guestsTable).where(eq(guestsTable.confirmation, true))
-   const canceledGuests = await db.select().from(guestsTable).where(eq(guestsTable.confirmation, false))
-
-    return {
-        guests,
-        canFetchMore,
-        confirmedGuests,
-        canceledGuests
-    }
-} 
+   
+   return {
+    guests,
+    count: guestsCount
+   }
+}
 
 export default async function deleteGuest({id}: {id: number}){
     

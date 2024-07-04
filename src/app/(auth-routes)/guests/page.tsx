@@ -3,8 +3,14 @@ import GuestsList from "~/components/dashboard/GuestsList";
 import { getGuests } from "~/server/guests";
 
 export default async function Guests() {
-  const { guests, confirmedGuests, canceledGuests } = await getGuests({
+  const { guests: confirmedGuests } = await getGuests({
     page: 1,
+    onlyConfirmed: true,
+  });
+
+  const { guests: canceledGuests } = await getGuests({
+    page: 1,
+    onlyConfirmed: false,
   });
 
   const adultsConfirmed = confirmedGuests.reduce((acc, guest) => {
@@ -46,9 +52,12 @@ export default async function Guests() {
         </div>
       </div>
       <GuestsList
-        confirmedGuests={adultsConfirmed + childrenConfimed}
-        canceledGuests={canceledGuests.length}
-        guests={guests}
+        confirmedGuestsCount={adultsConfirmed + childrenConfimed}
+        canceledGuestsCount={canceledGuests.length}
+        guests={{
+          confirmed: confirmedGuests,
+          canceled: canceledGuests,
+        }}
       />
     </div>
   );
