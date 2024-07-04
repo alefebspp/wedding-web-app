@@ -2,13 +2,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Search } from "lucide-react";
 import { Input } from "~/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { Tabs, TabsContent, TabsList } from "~/components/ui/tabs";
 import GuestInfos from "~/components/dashboard/GuestInfos";
 import { Guest } from "~/types";
 
 import { getGuests } from "~/server/guests";
 import { useToast } from "../ui/use-toast";
 import Loader from "../Loader";
+import { cn } from "~/lib/utils";
 
 type Props = {
   guests: {
@@ -27,7 +28,7 @@ export default function GuestsList({
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [searchValue, setSearchValue] = useState<string>();
-  const [onlyConfirmed, setOnlyConfirmed] = useState(true);
+  const [activeTab, setActiveTab] = useState("confirmed");
   const [confirmedGuests, setConfirmedGuests] = useState(guests.confirmed);
   const [canceledGuests, setCanceledGuests] = useState(guests.canceled);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
@@ -37,11 +38,13 @@ export default function GuestsList({
   async function handleGetGuests() {
     setIsLoading(true);
     try {
+      const onlyConfirmed = activeTab === "confirmed";
       const { guests, count } = await getGuests({
         page,
         onlyConfirmed,
         search: searchValue,
       });
+
       onlyConfirmed ? setConfirmedGuests(guests) : setCanceledGuests(guests);
     } catch (error) {
       toast({
@@ -72,7 +75,7 @@ export default function GuestsList({
         clearTimeout(debounceRef.current);
       }
     };
-  }, [searchValue]);
+  }, [searchValue, activeTab]);
 
   return (
     <div className="flex h-full flex-col gap-8 bg-slate-100 px-4">
@@ -95,22 +98,36 @@ export default function GuestsList({
           className="h-12 !rounded-l-none rounded-r-3xl !border-0"
         />
       </div>
-      <Tabs defaultValue="confirmed" className="w-full bg-white">
+      <Tabs
+        value={activeTab}
+        defaultValue="confirmed"
+        className="w-full bg-white"
+      >
         <TabsList className="w-full bg-white">
-          <TabsTrigger
-            className="h-12 w-1/2 border-b-4 border-gray-300 text-gray-400"
-            value="confirmed"
-            onClick={() => setOnlyConfirmed(true)}
+          <button
+            onClick={() => setActiveTab("confirmed")}
+            className={cn(
+              "h-12 w-1/2 appearance-none border-b-4 border-gray-300 text-gray-400",
+              {
+                "border-blue-400 text-blue-400": activeTab === "confirmed",
+              },
+            )}
           >
+            {" "}
             Confirmados {`(${confirmedGuestsCount})`}
-          </TabsTrigger>
-          <TabsTrigger
-            className="h-12 w-1/2 border-b-4 border-gray-300 text-gray-400"
-            value="canceled"
-            onClick={() => setOnlyConfirmed(false)}
+          </button>
+
+          <button
+            onClick={() => setActiveTab("canceled")}
+            className={cn(
+              "h-12 w-1/2 appearance-none border-b-4 border-gray-300 text-gray-400",
+              {
+                "border-blue-400 text-blue-400": activeTab === "canceled",
+              },
+            )}
           >
             Cancelados {`(${canceledGuestsCount})`}
-          </TabsTrigger>
+          </button>
         </TabsList>
         <TabsContent value="confirmed">
           {isLoading ? (
@@ -142,7 +159,7 @@ export default function GuestsList({
 function LoadingContainer() {
   return (
     <div className="flex h-48 w-full items-center justify-center">
-      <Loader className="text-gray-600" />
+      <Loader />
     </div>
   );
 }
