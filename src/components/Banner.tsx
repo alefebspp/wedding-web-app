@@ -20,6 +20,7 @@ export default function Banner() {
           </span>
         </div>
         <div
+          id="home"
           className={cn(
             "my-[20px] ml-[40px] mr-[100px] min-w-[300px] md:ml-0 lg:m-0",
             montSerrat.className,
@@ -46,7 +47,7 @@ export default function Banner() {
             uniremos nossas almas e corpos para sempre, O Dia Do Nosso
             Casamento.
           </p>
-          <div className="text-terracota-primary my-4 inline-flex items-center bg-cream pl-[16px] pr-[16px] pt-[3px] text-[20px] font-bold tracking-[4px] 2xl:text-[25px]">
+          <div className="my-4 inline-flex items-center bg-cream pl-[16px] pr-[16px] pt-[3px] text-[20px] font-bold tracking-[4px] text-terracota-primary 2xl:text-[25px]">
             24/10/2024
           </div>
           <span className="block h-[70px] w-[2px] bg-cream lg:h-[140px] xl:h-[200px]"></span>
