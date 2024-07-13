@@ -20,7 +20,7 @@ export default function ProductCard({ product, editMode }: Props) {
     <div
       key={product.id}
       className={cn(
-        "flex w-4/5 flex-col gap-4 rounded-md bg-white p-2 shadow-lg",
+        "flex w-4/5 flex-col gap-4 rounded-md bg-white p-2 text-zinc-800 shadow-lg md:w-1/4",
         {
           "w-2/5 items-center": !editMode,
         },
@@ -52,7 +52,7 @@ export default function ProductCard({ product, editMode }: Props) {
           </DeleteDataAlert>
         </div>
       ) : (
-        <Button className="h-[48px] w-full rounded-3xl bg-olive-green-400 px-6 py-0">
+        <Button className="h-[48px] w-full rounded-3xl bg-olive-green-400 px-6 py-0 md:w-4/5">
           Presentear
         </Button>
       )}

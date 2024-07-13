@@ -7,7 +7,7 @@ export default async function GiftsList() {
   return (
     <div
       id="presentes"
-      className="flex w-full flex-col justify-center bg-cream px-4"
+      className="mx-auto flex w-full max-w-[970px] flex-col justify-center bg-cream px-4"
     >
       <h2 className="mb-[32px] text-center text-2xl font-semibold uppercase text-terracota-primary">
         lista de presentes

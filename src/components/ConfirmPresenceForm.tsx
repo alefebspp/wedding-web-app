@@ -195,7 +195,7 @@ export default function ConfirmPresenceForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex w-full flex-col gap-4 rounded-lg border border-slate-400 bg-white p-8"
+        className="flex w-full flex-col items-center justify-center gap-4 rounded-lg border border-slate-300 bg-white p-8 md:px-[15%]"
       >
         <FormField
           control={form.control}
@@ -224,7 +224,7 @@ export default function ConfirmPresenceForm() {
                   <button
                     type="button"
                     onClick={() => setValue(field.name, field.value + 1)}
-                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-gray-400 outline-none"
+                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-zinc-500 outline-none"
                   >
                     <Plus className="h-6 w-6 text-white" />
                   </button>
@@ -233,7 +233,7 @@ export default function ConfirmPresenceForm() {
                     type="button"
                     disabled={field.value === 0}
                     onClick={() => setValue(field.name, field.value - 1)}
-                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-gray-400 outline-none"
+                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-zinc-500 outline-none"
                   >
                     <Minus className="h-6 w-6 text-white" />
                   </button>
@@ -244,7 +244,7 @@ export default function ConfirmPresenceForm() {
           )}
         />
         {childrenNames.fields.map((field, index) => (
-          <div key={field.id} className="flex flex-col gap-2">
+          <div key={field.id} className="flex w-full flex-col gap-2 lg:w-4/5">
             <Input
               {...register(`children_names.${index}.name`)}
               placeholder="Nome da criança"
@@ -272,7 +272,7 @@ export default function ConfirmPresenceForm() {
                   <button
                     type="button"
                     onClick={() => setValue(field.name, field.value + 1)}
-                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-gray-400 outline-none"
+                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-zinc-500 outline-none"
                   >
                     <Plus className="h-6 w-6 text-white" />
                   </button>
@@ -281,7 +281,7 @@ export default function ConfirmPresenceForm() {
                     type="button"
                     disabled={field.value === 0}
                     onClick={() => setValue(field.name, field.value - 1)}
-                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-gray-400 outline-none"
+                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-zinc-500 outline-none"
                   >
                     <Minus className="h-6 w-6 text-white" />
                   </button>
@@ -292,7 +292,7 @@ export default function ConfirmPresenceForm() {
           )}
         />
         {adultsNames.fields.map((field, index) => (
-          <div key={field.id} className="flex flex-col gap-2">
+          <div key={field.id} className="flex w-full flex-col gap-2 lg:w-4/5">
             <Input
               {...register(`adults_names.${index}.name`)}
               placeholder="Nome do acompanhante"
@@ -311,7 +311,7 @@ export default function ConfirmPresenceForm() {
             <FormItem className="w-full lg:w-4/5">
               <FormLabel>{"Você(s) estará(ão) presente?"}</FormLabel>
               <FormControl>
-                <div className="flex items-center text-slate-600">
+                <div className="flex items-center text-zinc-500">
                   <div className="flex w-2/5 items-center gap-4">
                     <Checkbox
                       className="h-6 w-6"
@@ -334,13 +334,13 @@ export default function ConfirmPresenceForm() {
             </FormItem>
           )}
         />
-        <div className="flex w-full flex-col gap-4 pt-4">
+        <div className="flex w-full flex-col gap-4 pt-4 lg:w-4/5">
           <FormLabel>Email ou telefone para contato:</FormLabel>
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem className="w-full lg:w-4/5">
+              <FormItem className="w-full">
                 <FormLabel className="text-xs">Email</FormLabel>
                 <FormControl>
                   <Input placeholder="exemplo@hotmail.com" {...field} />
@@ -353,7 +353,7 @@ export default function ConfirmPresenceForm() {
             control={form.control}
             name="phone"
             render={({ field }) => (
-              <FormItem className="w-full lg:w-4/5">
+              <FormItem className="w-full">
                 <FormLabel className="text-xs">Telefone</FormLabel>
                 <FormControl>
                   <Input placeholder="(21) 99999-9999" {...field} />
@@ -365,7 +365,7 @@ export default function ConfirmPresenceForm() {
         </div>
         <Button
           isLoading={isSubmitting}
-          className="mx-auto w-4/5 rounded-3xl bg-terracota-primary text-cream"
+          className="mx-auto w-4/5 rounded-3xl bg-terracota-primary text-cream lg:mt-4 lg:w-3/5"
           type="submit"
         >
           Confirmar presença

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Header from "./Header";
 
 export default function Counter() {
   const [timeLeft, setTimeLeft] = useState({
@@ -39,7 +40,7 @@ export default function Counter() {
   return (
     <div
       id="counter"
-      className="flex min-h-[338px] flex-col items-center justify-center bg-cream px-4 py-[44px] font-semibold"
+      className="relative flex min-h-[338px] flex-col items-center justify-center bg-cream px-4 py-[44px] font-semibold"
     >
       <h2 className=" mb-[32px] text-center text-2xl uppercase text-terracota-primary">
         contagem regressiva
