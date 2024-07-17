@@ -28,7 +28,7 @@ export default function useProducts({ initialProducts, canFetchMore }: Props) {
           setProducts(products);
           setCanLoadMoreProducts(canFetchMore);
         } catch (error) {
-          console.log("Error: " + error);
+          console.log(error);
         } finally {
           setIsLoading(false);
         }
