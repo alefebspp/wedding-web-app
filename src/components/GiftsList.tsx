@@ -1,22 +1,32 @@
-import { getProductsWithImages } from "~/server/products";
-import ProductCard from "./ProductCard";
+"use client";
+import ProductCard, { ProcutCardSkeleton } from "./ProductCard";
+import Cart from "./Cart";
+import { ProductWithImage } from "~/types";
+import useProducts from "~/hooks/useProducts";
 
-export default async function GiftsList() {
-  const { products } = await getProductsWithImages({ page: 1 });
+type Props = {
+  initialProducts: ProductWithImage[];
+  canFetchMore: boolean;
+};
+
+export default function GiftsList({ initialProducts, canFetchMore }: Props) {
+  const { products, isLoading, setPriceOrderBy } = useProducts({
+    initialProducts,
+    canFetchMore,
+  });
 
   return (
-    <div
-      id="presentes"
-      className="flex w-full flex-col justify-center bg-cream px-4"
-    >
-      <h2 className="mb-[32px] text-center text-2xl font-semibold uppercase text-terracota-primary">
-        lista de presentes
-      </h2>
+    <>
+      <Cart onValueChange={(value) => setPriceOrderBy(value)} />
       <div className="flex flex-wrap items-center justify-center gap-4 text-gray-600">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {isLoading
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <ProcutCardSkeleton key={index} />
+            ))
+          : products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
       </div>
-    </div>
+    </>
   );
 }

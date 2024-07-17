@@ -18,11 +18,14 @@ const config = {
       },
     },
     extend: {
+      boxShadow: {
+        "bottom": "0px 15px 10px -15px rgba(0, 0, 0, 0.2)"
+      },
       screens: {
         "2xl": "1400px",
       },
       colors: {
-        cream: "#F5F5DC",
+        cream: "#F5EFDC",
         terracota: {
           primary: "#c14f35",
           200: "#ffd2c0",

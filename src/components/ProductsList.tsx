@@ -45,7 +45,7 @@ export default function ProductsList({ products, canFetchMore }: Props) {
   }, [isLoading]);
 
   return (
-    <div className="flex w-full flex-col items-center">
+    <div className="mx-auto flex w-full max-w-[970px] flex-col items-center">
       <div className="flex w-full flex-wrap items-start justify-center gap-4 px-4 py-4">
         {userProducts.map((product) => (
           <ProductCard key={product.id} product={product} editMode />
