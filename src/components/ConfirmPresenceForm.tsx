@@ -233,7 +233,7 @@ export default function ConfirmPresenceForm() {
                     type="button"
                     disabled={field.value === 0}
                     onClick={() => setValue(field.name, field.value - 1)}
-                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-zinc-500 outline-none"
+                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-zinc-500 outline-none disabled:opacity-50"
                   >
                     <Minus className="h-6 w-6 text-white" />
                   </button>
@@ -281,7 +281,7 @@ export default function ConfirmPresenceForm() {
                     type="button"
                     disabled={field.value === 0}
                     onClick={() => setValue(field.name, field.value - 1)}
-                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-zinc-500 outline-none"
+                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-zinc-500 outline-none disabled:opacity-50"
                   >
                     <Minus className="h-6 w-6 text-white" />
                   </button>
@@ -365,7 +365,7 @@ export default function ConfirmPresenceForm() {
         </div>
         <Button
           isLoading={isSubmitting}
-          className="mx-auto w-4/5 rounded-3xl bg-terracota-primary text-cream lg:mt-4 lg:w-3/5"
+          className="mx-auto w-4/5 rounded-3xl bg-terracota-primary text-cream lg:mt-4 lg:h-12 lg:w-3/5"
           type="submit"
         >
           Confirmar presença

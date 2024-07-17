@@ -1,9 +1,9 @@
 import Banner from "~/components/Banner";
 import ConfirmPresenceSection from "~/components/ConfirmPresenceSection";
 import Counter from "~/components/Counter";
-import GiftsList from "~/components/GiftsList";
 import MobileNavBar from "~/components/MobileNavBar";
 import Header from "~/components/Header";
+import GiftsSection from "~/components/GiftsSection";
 
 export default function HomePage() {
   return (
@@ -12,7 +12,7 @@ export default function HomePage() {
       <Header />
       <Banner />
       <Counter />
-      <GiftsList />
+      <GiftsSection />
       <ConfirmPresenceSection />
       <MobileNavBar />
     </main>

@@ -9,6 +9,7 @@ import DeleteDataAlert from "./DeleteDataAlert";
 import deleteProduct from "~/server/products";
 import { Button } from "./ui/button";
 import { cn } from "~/lib/utils";
+import { Skeleton } from "./ui/skeleton";
 
 type Props = {
   product: ProductWithImage;
@@ -52,10 +53,20 @@ export default function ProductCard({ product, editMode }: Props) {
           </DeleteDataAlert>
         </div>
       ) : (
-        <Button className="h-[48px] w-full rounded-3xl bg-olive-green-400 px-6 py-0 md:w-4/5">
+        <Button className="w-full rounded-3xl bg-olive-green-400 px-6 py-0 md:w-4/5">
           Presentear
         </Button>
       )}
     </div>
+  );
+}
+
+export function ProcutCardSkeleton() {
+  return (
+    <Skeleton className="flex w-2/5 flex-col gap-4 rounded-md bg-white p-2 shadow-lg md:w-1/4">
+      <Skeleton className="relative h-44 w-full" />
+      <Skeleton className="h-10 w-20" />
+      <Skeleton className="h-12 w-full md:w-4/5" />
+    </Skeleton>
   );
 }
