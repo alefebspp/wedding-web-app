@@ -118,7 +118,7 @@ export default function CreateProductDialog({ children, product }: Props) {
 
         await createProduct({
           ...data,
-          price: parseFloat(data.price),
+          price: removeCurrencyMask(data.price),
           path: fileUrl,
         });
 

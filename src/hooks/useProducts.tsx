@@ -12,20 +12,22 @@ type Props = {
 export default function useProducts({ initialProducts, canFetchMore }: Props) {
   const [products, setProducts] = useState(initialProducts);
   const [priceOrderBy, setPriceOrderBy] = useState<string>();
-  const [canLoadMoreProducts, setCanLoadMoreProducts] = useState<boolean>();
+  const [canLoadMoreProducts, setCanLoadMoreProducts] =
+    useState<boolean>(canFetchMore);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
 
+  const loadProducts = () => setIsLoading(true);
+
   useEffect(() => {
-    if (priceOrderBy || canLoadMoreProducts) {
+    if (isLoading) {
       async function handleGetProducts() {
-        setIsLoading(true);
         try {
           const { products, canFetchMore } = await getProductsWithImages({
             price: priceOrderBy,
             page,
           });
-          setProducts(products);
+          setProducts((prev) => [...prev, ...products]);
           setCanLoadMoreProducts(canFetchMore);
         } catch (error) {
           console.log(error);
@@ -35,16 +37,16 @@ export default function useProducts({ initialProducts, canFetchMore }: Props) {
       }
 
       handleGetProducts();
-    } else {
-      setCanLoadMoreProducts(canFetchMore);
     }
-  }, [priceOrderBy, canLoadMoreProducts]);
+  }, [isLoading]);
 
   return {
     products,
+    setProducts,
     setPriceOrderBy,
     canLoadMoreProducts,
     isLoading,
+    loadProducts,
     page,
     setPage,
   };

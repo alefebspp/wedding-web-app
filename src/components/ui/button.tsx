@@ -12,6 +12,7 @@ const buttonVariants = cva(
       variant: {
         default: "bg-terracota-primary text-white",
         rounded: "bg-terracota-primary text-white rounded-3xl",
+        "rounded-cancel": "rounded-3xl bg-neutral-500 text-white",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
