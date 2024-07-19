@@ -1,4 +1,5 @@
 "use client";
+import { PropsWithChildren, useState } from "react";
 import { AlignRight, Heart } from "lucide-react";
 
 import {
@@ -8,9 +9,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "~/components/ui/sheet";
-import AuthDialog from "./AuthDialog";
-import { PropsWithChildren, useState } from "react";
-import Link from "next/link";
 
 type CustomLinkProps = {
   onClick: () => void;

@@ -10,6 +10,8 @@ import deleteProduct from "~/server/products";
 import { Button } from "./ui/button";
 import { cn } from "~/lib/utils";
 import { Skeleton } from "./ui/skeleton";
+import useCart from "~/hooks/useCart";
+import { useCartContext } from "~/contexts/cartContext";
 
 type Props = {
   product: ProductWithImage;
@@ -17,6 +19,22 @@ type Props = {
 };
 
 export default function ProductCard({ product, editMode }: Props) {
+  const { addProduct } = useCart();
+  const { setShowSummary, cart } = useCartContext();
+
+  const productAddedToCart = cart.find(
+    (cartProduct) => cartProduct.id === product.id,
+  );
+
+  function handleAddProduct(product: ProductWithImage) {
+    addProduct(product);
+    setShowSummary(true);
+    const giftsListTop = document.getElementById("presentes");
+    if (giftsListTop) {
+      giftsListTop.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
   return (
     <div
       key={product.id}
@@ -53,7 +71,11 @@ export default function ProductCard({ product, editMode }: Props) {
           </DeleteDataAlert>
         </div>
       ) : (
-        <Button className="w-full rounded-3xl bg-olive-green-400 px-6 py-0 md:w-4/5">
+        <Button
+          disabled={!!productAddedToCart}
+          onClick={() => handleAddProduct(product)}
+          className="w-full rounded-3xl bg-olive-green-400 px-6 py-0 disabled:bg-neutral-500 disabled:opacity-50 md:w-4/5"
+        >
           Presentear
         </Button>
       )}
