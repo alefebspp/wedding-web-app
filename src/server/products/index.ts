@@ -1,5 +1,5 @@
 "use server"
-import { eq, asc, getTableColumns, count } from "drizzle-orm";
+import { eq, asc, getTableColumns, count, desc } from "drizzle-orm";
 import { db } from "../db";
 import { InsertProduct, SelectProduct, products as productsTable, productsImages } from "../db/schema";
 import { revalidatePath } from "next/cache";
@@ -15,6 +15,11 @@ interface CreateProductRequest extends InsertProduct {
 interface UpdateProductRequest extends Partial<Omit<SelectProduct, 'id'>>{
     data: UpdateProductData;
     id: number;
+}
+
+interface GetProductsRequest {
+    page: number;
+    price?: string;
 }
 
 export async function createProduct(data: CreateProductRequest){
@@ -55,8 +60,17 @@ export async function updateProduct({data,id}: UpdateProductRequest){
 
 
 
-export async function getProductsWithImages({page}: {page: number}){
+export async function getProductsWithImages({page, price}: GetProductsRequest){
     const productsPerPage = 6
+
+    let orderBy = asc(productsTable.name)
+
+    if(price == "asc"){
+        orderBy = asc(productsTable.price)
+    }
+    if(price == "desc"){
+        orderBy = desc(productsTable.price)
+    }
 
     const productsRows = await db.select(
         {
@@ -65,7 +79,7 @@ export async function getProductsWithImages({page}: {page: number}){
         }
     ).from(productsTable).leftJoin(productsImages, eq(productsTable.id, productsImages.product_id))
     .groupBy(productsTable.id, productsImages.path)
-    .orderBy(asc(productsTable.id))
+    .orderBy(orderBy)
     .limit(productsPerPage)
     .offset((page - 1) * productsPerPage);
 

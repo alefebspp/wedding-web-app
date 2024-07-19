@@ -1,22 +1,70 @@
-import { getProductsWithImages } from "~/server/products";
-import ProductCard from "./ProductCard";
+"use client";
+import ProductCard, { ProcutCardSkeleton } from "./ProductCard";
+import Cart from "./Cart";
+import { ProductWithImage } from "~/types";
+import useProducts from "~/hooks/useProducts";
+import { useCartContext } from "~/contexts/cartContext";
+import { Button } from "./ui/button";
 
-export default async function GiftsList() {
-  const { products } = await getProductsWithImages({ page: 1 });
+type Props = {
+  initialProducts: ProductWithImage[];
+  canFetchMore: boolean;
+};
+
+export default function GiftsList({ initialProducts, canFetchMore }: Props) {
+  const {
+    products,
+    setProducts,
+    isLoading,
+    loadProducts,
+    setPriceOrderBy,
+    canLoadMoreProducts,
+    setPage,
+  } = useProducts({
+    initialProducts,
+    canFetchMore,
+  });
+
+  const { showSummary } = useCartContext();
+
+  function onGiftsListFilterChange(value: string) {
+    setProducts([]);
+    setPriceOrderBy(value);
+    setPage(1);
+    loadProducts();
+  }
+
+  function handleLoadMoreProducts() {
+    setPage((prev) => prev + 1);
+    loadProducts();
+  }
 
   return (
-    <div
-      id="presentes"
-      className="flex w-full flex-col justify-center bg-cream px-4"
-    >
-      <h2 className="mb-[32px] text-center text-2xl font-semibold uppercase text-terracota-primary">
-        lista de presentes
-      </h2>
-      <div className="flex flex-wrap items-center justify-center gap-4 text-gray-600">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-    </div>
+    <>
+      <Cart onValueChange={(value) => onGiftsListFilterChange(value)} />
+      {!showSummary && (
+        <div className="flex flex-wrap items-center justify-center gap-4 pb-12 text-gray-600">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+          {isLoading &&
+            Array.from({ length: 6 }).map((_, index) => (
+              <ProcutCardSkeleton key={index} />
+            ))}
+        </div>
+      )}
+      {canLoadMoreProducts && !showSummary && (
+        <div className=" w-full border-t-2 border-white pt-12 text-center">
+          <Button
+            disabled={isLoading}
+            onClick={handleLoadMoreProducts}
+            variant="rounded"
+            className="w-fit"
+          >
+            Ver mais presentes
+          </Button>
+        </div>
+      )}
+    </>
   );
 }
