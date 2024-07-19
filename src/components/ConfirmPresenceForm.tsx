@@ -224,7 +224,7 @@ export default function ConfirmPresenceForm() {
                   <button
                     type="button"
                     onClick={() => setValue(field.name, field.value + 1)}
-                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-zinc-500 outline-none"
+                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-gray-500 outline-none"
                   >
                     <Plus className="h-6 w-6 text-white" />
                   </button>
@@ -233,7 +233,7 @@ export default function ConfirmPresenceForm() {
                     type="button"
                     disabled={field.value === 0}
                     onClick={() => setValue(field.name, field.value - 1)}
-                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-zinc-500 outline-none disabled:opacity-50"
+                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-gray-500 outline-none disabled:opacity-50"
                   >
                     <Minus className="h-6 w-6 text-white" />
                   </button>
@@ -272,7 +272,7 @@ export default function ConfirmPresenceForm() {
                   <button
                     type="button"
                     onClick={() => setValue(field.name, field.value + 1)}
-                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-zinc-500 outline-none"
+                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-gray-500 outline-none"
                   >
                     <Plus className="h-6 w-6 text-white" />
                   </button>
@@ -281,7 +281,7 @@ export default function ConfirmPresenceForm() {
                     type="button"
                     disabled={field.value === 0}
                     onClick={() => setValue(field.name, field.value - 1)}
-                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-zinc-500 outline-none disabled:opacity-50"
+                    className="flex h-8 w-8 appearance-none items-center justify-center rounded-full bg-gray-500 outline-none disabled:opacity-50"
                   >
                     <Minus className="h-6 w-6 text-white" />
                   </button>
@@ -311,7 +311,7 @@ export default function ConfirmPresenceForm() {
             <FormItem className="w-full lg:w-4/5">
               <FormLabel>{"Você(s) estará(ão) presente?"}</FormLabel>
               <FormControl>
-                <div className="flex items-center text-zinc-500">
+                <div className="flex items-center text-gray-500">
                   <div className="flex w-2/5 items-center gap-4">
                     <Checkbox
                       className="h-6 w-6"
