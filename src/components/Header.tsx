@@ -15,8 +15,9 @@ export default function Header({ asNav }: Props) {
   useEffect(() => {
     const counterRef = document.getElementById("counter");
     if (counterRef) {
-      const counterHeight = counterRef.getBoundingClientRect();
-      setHeightRef(counterHeight.top);
+      const counterRect = counterRef.getBoundingClientRect();
+      const initialScrollY = window.scrollY;
+      setHeightRef(counterRect.top + initialScrollY);
     }
   }, []);
 
@@ -58,7 +59,7 @@ export default function Header({ asNav }: Props) {
         className={cn(
           "lg-px-8 relative hidden h-[100px] min-h-[100px] w-full px-4 transition-all duration-500 ease-in-out md:flex",
           {
-            "absolute -top-20 z-[-1] [&.is-sticky]:fixed [&.is-sticky]:z-50 [&.is-sticky]:translate-y-20 [&.is-sticky]:bg-white [&.is-sticky]:text-zinc-800 [&.is-sticky]:shadow-bottom ":
+            "absolute -top-20 z-[-1] [&.is-sticky]:fixed [&.is-sticky]:z-50 [&.is-sticky]:!h-20 [&.is-sticky]:!min-h-20 [&.is-sticky]:translate-y-20 [&.is-sticky]:bg-white [&.is-sticky]:text-zinc-800 [&.is-sticky]:shadow-bottom ":
               asNav,
           },
           {
