@@ -14,16 +14,23 @@ import { Button } from "./ui/button";
 import { useCartContext } from "~/contexts/cartContext";
 import Image from "next/image";
 import useCart from "~/hooks/useCart";
+import { useState } from "react";
 
 type Props = {
   onValueChange: (value: string) => void;
 };
 
 export default function Cart({ onValueChange }: Props) {
+  const [priceFilter, setPriceFilter] = useState("default");
   const { cart, showSummary, setShowSummary, cartTotal } = useCartContext();
   const { removeProduct } = useCart();
 
   const cartHasProducts = cart.length > 0;
+
+  function handleOnValueChange(value: string) {
+    setPriceFilter(value);
+    onValueChange(value);
+  }
 
   function handleBackToGiftsList() {
     setShowSummary(false);
@@ -141,7 +148,8 @@ export default function Cart({ onValueChange }: Props) {
           <div className="flex w-full items-center justify-between  py-4 md:h-full md:w-fit md:items-center md:justify-center md:gap-2 md:py-0">
             <p className="text-sm text-zinc-700">Ordernar lista por:</p>
             <Select
-              onValueChange={(value) => onValueChange(value)}
+              value={priceFilter}
+              onValueChange={(value) => handleOnValueChange(value)}
               defaultValue="default"
             >
               <SelectTrigger className="w-[150px]">

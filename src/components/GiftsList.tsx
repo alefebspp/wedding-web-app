@@ -44,13 +44,13 @@ export default function GiftsList({ initialProducts, canFetchMore }: Props) {
       <Cart onValueChange={(value) => onGiftsListFilterChange(value)} />
       {!showSummary && (
         <div className="flex flex-wrap items-center justify-center gap-4 pb-12 text-gray-600">
-          {isLoading
-            ? Array.from({ length: 6 }).map((_, index) => (
-                <ProcutCardSkeleton key={index} />
-              ))
-            : products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+          {isLoading &&
+            Array.from({ length: 6 }).map((_, index) => (
+              <ProcutCardSkeleton key={index} />
+            ))}
         </div>
       )}
       {canLoadMoreProducts && !showSummary && (
