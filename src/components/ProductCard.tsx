@@ -53,7 +53,9 @@ export default function ProductCard({ product, editMode }: Props) {
           alt="Product image"
         />
       </div>
-      <span className="text-[14px]">{product.name}</span>
+      <span className="flex h-12 items-center justify-center text-center text-[14px]">
+        {product.name}
+      </span>
       <span className="text-lg font-bold">
         {product.price &&
           product.price.toLocaleString("pt-BR", {
