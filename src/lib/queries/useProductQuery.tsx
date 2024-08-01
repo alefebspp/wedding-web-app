@@ -29,7 +29,7 @@ import deleteProduct from "~/server/products";
 export default function useProductQuery() {
   const queryClient = useQueryClient();
 
-  function getProducts({ price }: { price?: string }) {
+  function useGetProducts({ price }: { price?: string }) {
     const query = useInfiniteQuery({
       queryKey: ["products", price],
       queryFn: async ({ pageParam = 1 }) =>
@@ -53,7 +53,7 @@ export default function useProductQuery() {
     return query;
   }
 
-  function deleteProductMutation() {
+  function useDeleteProductMutation() {
     const mutation = useMutation({
       mutationFn: deleteProduct,
       onSuccess: (data, { id }) => {
@@ -76,7 +76,7 @@ export default function useProductQuery() {
     return mutation;
   }
 
-  function updateProductMutation() {
+  function useUpdateProductMutation() {
     const mutation = useMutation({
       mutationFn: updateProduct,
       onSuccess: (data, { id, data: updatedData }) => {
@@ -105,8 +105,8 @@ export default function useProductQuery() {
   }
 
   return {
-    getProducts,
-    updateProductMutation,
-    deleteProductMutation,
+    useGetProducts,
+    useDeleteProductMutation,
+    useUpdateProductMutation,
   };
 }

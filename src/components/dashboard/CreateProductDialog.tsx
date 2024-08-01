@@ -43,9 +43,9 @@ export default function CreateProductDialog({ children, product }: Props) {
   const inputFileRef = useRef<HTMLInputElement>(null);
 
   const { toast } = useToast();
-  const { updateProductMutation } = useProductQuery();
+  const { useUpdateProductMutation } = useProductQuery();
 
-  const { mutateAsync } = updateProductMutation();
+  const { mutateAsync } = useUpdateProductMutation();
 
   const showPreviewImage = product && !editingImage;
 

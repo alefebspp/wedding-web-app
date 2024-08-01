@@ -7,9 +7,9 @@ import { ProductWithImage } from "~/types";
 export default function useProducts() {
   const [priceOrderBy, setPriceOrderBy] = useState<string>();
 
-  const { getProducts } = useProductQuery();
+  const { useGetProducts } = useProductQuery();
 
-  const query = getProducts({
+  const query = useGetProducts({
     price: priceOrderBy,
   });
 

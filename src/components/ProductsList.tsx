@@ -7,10 +7,10 @@ import useProductQuery from "~/lib/queries/useProductQuery";
 import React from "react";
 
 export default function ProductsList() {
-  const { getProducts } = useProductQuery();
+  const { useGetProducts } = useProductQuery();
 
   const { data, isFetchingNextPage, isLoading, hasNextPage, fetchNextPage } =
-    getProducts({});
+    useGetProducts({});
 
   async function loadMoreProducts() {
     await fetchNextPage();
