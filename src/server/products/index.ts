@@ -12,7 +12,7 @@ interface CreateProductRequest extends InsertProduct {
     path: string;
 }
 
-interface UpdateProductRequest extends Partial<Omit<SelectProduct, 'id'>>{
+export interface UpdateProductRequest extends Partial<Omit<SelectProduct, 'id'>>{
     data: UpdateProductData;
     id: number;
 }
@@ -96,6 +96,9 @@ export async function getProductsWithImages({page, price}: GetProductsRequest){
 export default async function deleteProduct({id}: {id: number}){
     const response = await fetch(`${process.env.NEXT_PUBLIC_MY_DOMAIN}/api/product_image/delete/${id.toString()}`, {
         method: "DELETE",
+        headers: {
+            "Content-type": "application/json"
+        }
       });
 
     const data: {success: boolean} = await response.json(); // eslint-disable-line no-use-before-define

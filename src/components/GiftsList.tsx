@@ -1,42 +1,25 @@
 "use client";
 import ProductCard, { ProcutCardSkeleton } from "./ProductCard";
 import Cart from "./Cart";
-import { ProductWithImage } from "~/types";
 import useProducts from "~/hooks/useProducts";
 import { useCartContext } from "~/contexts/cartContext";
 import { Button } from "./ui/button";
+import React from "react";
 
-type Props = {
-  initialProducts: ProductWithImage[];
-  canFetchMore: boolean;
-};
+export default function GiftsList() {
+  const { query, setPriceOrderBy } = useProducts();
 
-export default function GiftsList({ initialProducts, canFetchMore }: Props) {
-  const {
-    products,
-    setProducts,
-    isLoading,
-    loadProducts,
-    setPriceOrderBy,
-    canLoadMoreProducts,
-    setPage,
-  } = useProducts({
-    initialProducts,
-    canFetchMore,
-  });
+  const { data, isFetchingNextPage, isLoading, hasNextPage, fetchNextPage } =
+    query;
 
   const { showSummary } = useCartContext();
 
   function onGiftsListFilterChange(value: string) {
-    setProducts([]);
     setPriceOrderBy(value);
-    setPage(1);
-    loadProducts();
   }
 
-  function handleLoadMoreProducts() {
-    setPage((prev) => prev + 1);
-    loadProducts();
+  async function handleLoadMoreProducts() {
+    await fetchNextPage();
   }
 
   return (
@@ -44,20 +27,28 @@ export default function GiftsList({ initialProducts, canFetchMore }: Props) {
       <Cart onValueChange={(value) => onGiftsListFilterChange(value)} />
       {!showSummary && (
         <div className="flex flex-wrap items-center justify-center gap-4 pb-12 text-gray-600">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-          {isLoading &&
+          {isLoading
+            ? Array.from({ length: 6 }).map((_, index) => (
+                <ProcutCardSkeleton key={index} />
+              ))
+            : data?.pages.map((group, i) => (
+                <React.Fragment key={i}>
+                  {group?.products.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </React.Fragment>
+              ))}
+          {isFetchingNextPage &&
             Array.from({ length: 6 }).map((_, index) => (
               <ProcutCardSkeleton key={index} />
             ))}
         </div>
       )}
-      {canLoadMoreProducts && !showSummary && (
+      {hasNextPage && !showSummary && (
         <div className=" w-full border-t-2 border-white pt-12 text-center">
           <Button
-            disabled={isLoading}
-            onClick={handleLoadMoreProducts}
+            disabled={isFetchingNextPage}
+            onClick={async () => await handleLoadMoreProducts()}
             variant="rounded"
             className="w-fit"
           >
