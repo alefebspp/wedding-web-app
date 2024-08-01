@@ -24,10 +24,12 @@ import Image from "next/image";
 import { X } from "lucide-react";
 import { useToast } from "../ui/use-toast";
 import { CURRENCYMask, removeCurrencyMask } from "~/utils/masks";
+import useProductQuery from "~/lib/queries/useProductQuery";
 
 const FormSchema = z.object({
   name: z.string({ message: "Campo obrigatório" }).min(1),
   price: z.string({ message: "Campo obrigatório" }).min(1),
+  payment_link: z.string({ message: "Campo obrigatório" }).min(1),
 });
 
 type Props = PropsWithChildren & {
@@ -41,6 +43,9 @@ export default function CreateProductDialog({ children, product }: Props) {
   const inputFileRef = useRef<HTMLInputElement>(null);
 
   const { toast } = useToast();
+  const { useUpdateProductMutation } = useProductQuery();
+
+  const { mutateAsync } = useUpdateProductMutation();
 
   const showPreviewImage = product && !editingImage;
 
@@ -54,6 +59,7 @@ export default function CreateProductDialog({ children, product }: Props) {
               style: "currency",
               currency: "BRL",
             }) ?? "",
+          payment_link: product.payment_link ?? "",
         }
       : {},
   });
@@ -91,7 +97,7 @@ export default function CreateProductDialog({ children, product }: Props) {
           });
         }
 
-        await updateProduct({
+        await mutateAsync({
           id: product.id,
           data: {
             ...updateData,
@@ -136,6 +142,7 @@ export default function CreateProductDialog({ children, product }: Props) {
         setIsOpen(false);
       }
     } catch (error) {
+      console.log("ERROR:", error);
       toast({
         title: "Error",
         description: "Aconteceu um erro ao tentar realizar ação",
@@ -154,7 +161,9 @@ export default function CreateProductDialog({ children, product }: Props) {
 
   return (
     <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogTrigger className=" cursor-pointer" asChild>
+        {children}
+      </DialogTrigger>
       <DialogContent className="top-0 h-full translate-y-0 lg:top-[50%] lg:h-fit lg:translate-y-[-50%]">
         <Form {...form}>
           <form
@@ -200,8 +209,21 @@ export default function CreateProductDialog({ children, product }: Props) {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="payment_link"
+              render={({ field }) => (
+                <FormItem className="w-full lg:w-4/5">
+                  <FormLabel>Link de pagamento</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Ex: https://..." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             {showPreviewImage && (
-              <div className="relative mt-8 flex h-1/5 w-4/5 flex-col before:absolute before:-top-4 before:left-0 before:text-xs before:font-semibold before:uppercase before:text-muted-foreground before:content-['imagem']">
+              <div className="relative mt-8 flex h-1/5 w-4/5 flex-col before:absolute before:-top-4 before:left-0 before:text-xs before:font-semibold before:uppercase before:text-muted-foreground before:content-['imagem'] lg:h-32 lg:w-3/5">
                 <Image
                   fill
                   className="w-full rounded-lg align-middle"

@@ -18,6 +18,7 @@ const config = {
     "@typescript-eslint/prefer-optional-chain": "off",
     "@typescript-eslint/dot-notation": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {

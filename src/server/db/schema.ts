@@ -26,6 +26,7 @@ export const products = createTable(
   {
     id: serial("id").primaryKey(),
     name: varchar("name", { length: 256 }),
+    payment_link: varchar("payment_link"),
     price: doublePrecision("price"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)

@@ -14,6 +14,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
     await del(imageUrl, {token: process.env.BLOB_READ_WRITE_TOKEN,
     }); 
    } catch (error) {
+    console.log("ERROR:", error)
     return Response.json({success: false})
    }
 

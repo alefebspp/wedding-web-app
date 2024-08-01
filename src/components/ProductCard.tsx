@@ -12,6 +12,8 @@ import { cn } from "~/lib/utils";
 import { Skeleton } from "./ui/skeleton";
 import useCart from "~/hooks/useCart";
 import { useCartContext } from "~/contexts/cartContext";
+import useProductQuery from "~/lib/queries/useProductQuery";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Props = {
   product: ProductWithImage;
@@ -22,9 +24,19 @@ export default function ProductCard({ product, editMode }: Props) {
   const { addProduct } = useCart();
   const { setShowSummary, cart } = useCartContext();
 
+  const queryClient = useQueryClient();
+
   const productAddedToCart = cart.find(
     (cartProduct) => cartProduct.id === product.id,
   );
+
+  async function handleDeleteProduct({ id }: { id: number }) {
+    const success = await deleteProduct({ id });
+    if (success) {
+      queryClient.invalidateQueries({ queryKey: ["products", undefined] });
+    }
+    return success;
+  }
 
   function handleAddProduct(product: ProductWithImage) {
     addProduct(product);
@@ -68,7 +80,7 @@ export default function ProductCard({ product, editMode }: Props) {
           <CreateProductDialog product={product}>
             <Edit className="h-8 w-8 text-slate-500" />
           </CreateProductDialog>
-          <DeleteDataAlert action={deleteProduct} id={product.id}>
+          <DeleteDataAlert action={handleDeleteProduct} id={product.id}>
             <Trash className="h-8 w-8 text-red-500" />
           </DeleteDataAlert>
         </div>
@@ -85,9 +97,16 @@ export default function ProductCard({ product, editMode }: Props) {
   );
 }
 
-export function ProcutCardSkeleton() {
+export function ProcutCardSkeleton({ editMode }: { editMode?: boolean }) {
   return (
-    <Skeleton className="flex w-2/5 flex-col gap-4 rounded-md bg-white p-2 shadow-lg md:w-1/4">
+    <Skeleton
+      className={cn(
+        "flex w-2/5 flex-col gap-4 rounded-md bg-white p-2 shadow-lg md:w-1/4",
+        {
+          "w-4/5": editMode,
+        },
+      )}
+    >
       <Skeleton className="relative h-44 w-full" />
       <Skeleton className="h-10 w-20" />
       <Skeleton className="h-12 w-full md:w-4/5" />

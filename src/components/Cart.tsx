@@ -15,6 +15,7 @@ import { useCartContext } from "~/contexts/cartContext";
 import Image from "next/image";
 import useCart from "~/hooks/useCart";
 import { useState } from "react";
+import Link from "next/link";
 
 type Props = {
   onValueChange: (value: string) => void;
@@ -83,12 +84,23 @@ export default function Cart({ onValueChange }: Props) {
                       <h3 className="mb-2 text-lg font-normal">
                         {product.name}
                       </h3>
-                      <button
-                        onClick={() => removeProduct(product.id)}
-                        className="w-fit appearance-none text-red-500 underline"
-                      >
-                        Remover
-                      </button>
+                      <div className="flex gap-4">
+                        {product.payment_link && (
+                          <Link
+                            target="_blank"
+                            className="w-fit text-green-400 underline"
+                            href={product.payment_link}
+                          >
+                            Presentear
+                          </Link>
+                        )}
+                        <button
+                          onClick={() => removeProduct(product.id)}
+                          className="w-fit appearance-none text-red-500 underline"
+                        >
+                          Remover
+                        </button>
+                      </div>
                     </div>
                     <div className="w-1/3 text-right md:w-1/4">
                       <span>
