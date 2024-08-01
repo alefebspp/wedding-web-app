@@ -4,6 +4,7 @@ export interface ProductWithImage {
     id: number;
     name: string | null;
     price: number | null;
+    payment_link: string | null;
     createdAt: Date;
     updatedAt: Date | null;
 }
