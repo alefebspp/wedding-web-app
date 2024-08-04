@@ -71,11 +71,11 @@ export default function Header({ asNav }: Props) {
           },
         )}
       >
-        {!asNav && (
+        {/* {!asNav && (
           <div className="absolute right-4 top-4 hidden md:block lg:hidden">
             <AuthDialog />
           </div>
-        )}
+        )} */}
         <div className="flex h-full items-start justify-center px-4 py-4 lg:items-center">
           <span className="top-[2px] text-2xl font-bold xl:hidden">L&A</span>
         </div>
@@ -119,11 +119,11 @@ export default function Header({ asNav }: Props) {
               Traje
             </Link>
           </li>
-          {!asNav && (
+          {/*  {!asNav && (
             <li className="hidden lg:block">
               <AuthDialog />
             </li>
-          )}
+          )} */}
         </ul>
       </header>
     </>
