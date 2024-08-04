@@ -4,6 +4,7 @@ import Counter from "~/components/Counter";
 import MobileNavBar from "~/components/MobileNavBar";
 import Header from "~/components/Header";
 import GiftsSection from "~/components/GiftsSection";
+import CeremonySection from "~/components/CeremonySection";
 
 export default function HomePage() {
   return (
@@ -12,6 +13,7 @@ export default function HomePage() {
       <Header />
       <Banner />
       <Counter />
+      <CeremonySection />
       <GiftsSection />
       <ConfirmPresenceSection />
       <MobileNavBar />
