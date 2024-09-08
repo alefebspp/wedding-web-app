@@ -109,9 +109,9 @@ export default function Header({ asNav }: Props) {
           <li className="px-[4px]">
             <Link
               className="px-4 py-2 text-sm uppercase xl:px-6"
-              href="#presenca"
+              href="#messages"
             >
-              Confirmar presença
+              Deixe seu recado
             </Link>
           </li>
           <li className="px-[4px]">

@@ -60,8 +60,8 @@ export default function MobileNavBar() {
         />
         <CustomLink
           onClick={closeNavBar}
-          href="#presenca"
-          label="Confirmar presença"
+          href="#messages"
+          label="Deixe seu recado"
         />
         <CustomLink onClick={closeNavBar} href="#traje" label="Traje" />
         {/* <div className="h-full w-full">
