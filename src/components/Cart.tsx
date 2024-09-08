@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { useCartContext } from "~/contexts/cartContext";
 import Image from "next/image";
 import useCart from "~/hooks/useCart";
@@ -131,15 +131,17 @@ export default function Cart({ onValueChange }: Props) {
                   className="md:w-1/4"
                   variant="rounded-cancel"
                 >
-                  Adicionar mais itens
+                  Continuar comprando
                 </Button>
-                <Button
-                  onClick={handleBackToGiftsList}
-                  className="md:w-1/4"
-                  variant="rounded"
+                <Link
+                  target="_blank"
+                  href="https://link.mercadopago.com.br/shopify3"
+                  className={buttonVariants({
+                    className: "!rounded-3xl md:w-1/4",
+                  })}
                 >
-                  Continuar compra
-                </Button>
+                  Finalizar compra
+                </Link>
               </div>
             </div>
           )}

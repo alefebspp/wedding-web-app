@@ -8,13 +8,12 @@ export default function Banner() {
     <div className="w-full bg-terracota-primary">
       <div className="w-full md:px-4 lg:mx-auto lg:px-8 xl:w-[1170px]">
         <div className=" w-full items-center md:flex md:pb-[32px]">
-          <div className="relative h-[560px] md:mr-[20px] md:h-[580px] md:min-w-[400px] xl:min-h-[780px] xl:min-w-[565px]">
+          <div className="relative flex h-[560px] items-center justify-center overflow-hidden text-center md:mr-[20px] md:h-[580px] md:min-w-[400px] xl:min-h-[780px] xl:min-w-[565px]">
             <Image
-              src="https://picsum.photos/200/300"
+              src="/main_image.jpg"
               alt="Image principal do casal"
-              width={100}
-              height={100}
-              className="h-full w-full bg-no-repeat object-cover "
+              fill
+              className="h-full min-h-full w-full object-cover object-[70%_50%] align-middle"
             />
             <span className="absolute left-4 top-4 text-2xl font-semibold  md:hidden">
               L&A

@@ -92,6 +92,22 @@ export const guestCompanionsRelations = relations(guestCompanions, ({ one }) => 
   guest: one(guests, { fields: [guestCompanions.guest_id], references: [guests.id] }),
 }));
 
+export const messages = createTable(
+  "messages",
+  {
+    id: serial("id").primaryKey(),
+    user_name: varchar("user_name"),
+    email: varchar("email", { length: 256 }),
+    content: varchar("content"),
+    active: boolean('active').notNull().default(true),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt", { withTimezone: true }),
+  }
+);
+
+export type InsertMessage = typeof messages.$inferInsert
 export type InserGuest = typeof guests.$inferInsert;
 export type InsertGuestCompanin = typeof guestCompanions.$inferInsert;
 export type InsertProduct = typeof products.$inferInsert;
