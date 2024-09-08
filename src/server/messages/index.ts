@@ -20,7 +20,7 @@ export async function updateMessage({id, data}: {id: number; data: InsertMessage
 export async function getMessages({page, onlyActives}: GetMessagesRequest){
     const itemsPerPage = 6
 
-    let orderBy = asc(messagesTable.user_name)
+    const orderBy = asc(messagesTable.user_name)
 
     const messagesRows = await db.query.messages.findMany({
     where: onlyActives ? eq(messagesTable.active, true) : undefined,

@@ -19,6 +19,7 @@ const config = {
     "@typescript-eslint/dot-notation": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
     "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-empty-interface": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {

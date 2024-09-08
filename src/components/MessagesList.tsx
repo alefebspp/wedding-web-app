@@ -41,7 +41,10 @@ export default function MessagesList() {
         {data?.pages.map((group, i) => (
           <React.Fragment key={i}>
             {group?.messages.map((message) => (
-              <div className="flex w-full flex-col gap-2 text-zinc-800">
+              <div
+                key={message.id}
+                className="flex w-full flex-col gap-2 text-zinc-800"
+              >
                 <h3 className="text-2xl text-terracota-primary">
                   {message.user_name}
                 </h3>
