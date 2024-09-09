@@ -10,10 +10,10 @@ export default function Banner() {
         <div className=" w-full items-center md:flex md:pb-[32px]">
           <div className="relative flex h-[560px] items-center justify-center overflow-hidden text-center md:mr-[20px] md:h-[580px] md:min-w-[400px] xl:min-h-[780px] xl:min-w-[565px]">
             <Image
-              src="/main_image.jpg"
+              src="/couple_2.jpg"
               alt="Image principal do casal"
               fill
-              className="h-full min-h-full w-full object-cover object-[70%_50%] align-middle"
+              className="h-full min-h-full w-full object-cover object-[100%_50%] align-middle"
             />
             <span className="absolute left-4 top-4 text-2xl font-semibold  md:hidden">
               L&A

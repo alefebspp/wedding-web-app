@@ -24,15 +24,16 @@ export default function HomePage() {
         />
       </div>
       <GiftsSection />
-      <div className="section relative mt-12 h-[400px] md:h-[560px]">
-        <Image
-          src="/couple_2.jpg"
-          alt="Image principal do casal"
-          fill
-          className="h-full min-h-full w-full object-cover object-[70%_60%] align-middle md:object-[70%_70%] lg:object-[70%_60%]"
-        />
+      <div className="pb-20">
+        <div className="section relative mt-12 h-[400px] md:h-[560px]">
+          <Image
+            src="/main_image.jpg"
+            alt="Image principal do casal"
+            fill
+            className="h-full min-h-full w-full object-cover object-[70%_60%] align-middle md:object-[70%_70%] lg:object-[70%_60%]"
+          />
+        </div>
       </div>
-      <MessagesSection />
       <MobileNavBar />
     </main>
   );
